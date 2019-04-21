@@ -1,4 +1,6 @@
 import React,  { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router'
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link, withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -13,7 +15,13 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Menu from './Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+
+import MenuRoutes from './Menu';
+
+import { removeActiveApp } from '../redux/modules/user';
 
 const styles = theme => ({
   appBar: {
@@ -80,7 +88,8 @@ class Topbar extends Component {
 
   state = {
     value: 0,
-    menuDrawer: false
+    menuDrawer: false,
+    anchorEl: null,
   };
 
   handleChange = (event, value) => {
@@ -117,19 +126,65 @@ class Topbar extends Component {
     }
 
   }
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  handleSwitchProject = () => {
+    this.handleClose();
+    this.props.removeActiveApp();
+  }
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
 
   render() {
 
-    const { classes } = this.props;
+    const { classes, user} = this.props;
+    const { anchorEl } = this.state;
+
+    const open = Boolean(anchorEl);
 
     return (
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
+                {
+                  user.active_app && (
+                    <>
+                    <IconButton
+                  aria-owns={open ? 'menu-appbar' : undefined}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.handleSwitchProject}>Switch Project</MenuItem>
+                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                </Menu>
+                    </>
+                  )
+                }
             <Grid container spacing={24} alignItems="baseline">
               <Grid item xs={12} className={classes.flex}>
                   <div className={classes.inline}>
                     <Typography variant="h6" color="inherit" noWrap>
-                      <Link to='/' className={classes.link}>
+                      <Link to='/dashboard' className={classes.link}>
                         <span className={classes.tagline}>Gatespace</span>
                       </Link>
                     </Typography>
@@ -138,7 +193,7 @@ class Topbar extends Component {
                     <React.Fragment>
                       <div className={classes.productLogo}>
                         <Typography>
-                          Admin Platform
+                          { user.app_name }
                         </Typography>
                       </div>
                       <div className={classes.iconContainer}>
@@ -150,8 +205,8 @@ class Topbar extends Component {
                         <SwipeableDrawer anchor="right" open={this.state.menuDrawer} onClose={this.mobileMenuClose} onOpen={this.mobileMenuOpen}>
                           <AppBar title="Menu" />
                           <List>
-                            {Menu.map((item, index) => (
-                              <ListItem component={Link} to={{pathname: item.pathname, search: this.props.location.search}} button key={item.label}>
+                            {MenuRoutes.map((item, index) => (
+                              <ListItem onClick={() => this.props.push(item.pathname)} button key={item.label}>
                                 <ListItemText primary={item.label} />
                               </ListItem>
                             ))}
@@ -163,8 +218,8 @@ class Topbar extends Component {
                           textColor="primary"
                           onChange={this.handleChange}
                         >
-                          {Menu.map((item, index) => (
-                            <Tab key={index} component={Link} to={{pathname: item.pathname, search: this.props.location.search}} classes={{root: classes.tabItem}} label={item.label} />
+                          {MenuRoutes.map((item, index) => (
+                            <Tab onClick={() => this.props.push(item.pathname)} key={index} classes={{root: classes.tabItem}} label={item.label} />
                           ))}
                         </Tabs>
                       </div>
@@ -178,4 +233,13 @@ class Topbar extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(Topbar))
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  removeActiveApp: () => dispatch(removeActiveApp())
+})
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Topbar)))

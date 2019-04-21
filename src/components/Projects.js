@@ -13,6 +13,10 @@ import SwipeDialog from './dialogs/SwipeDialog';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Icon from '@material-ui/core/Icon';
 
+import { push } from 'connected-react-router';
+
+import Topbar from './Topbar';
+
 import { setActiveApp } from '../redux/modules/user';
 
 const backgroundShape = require('../images/shape.svg');
@@ -133,10 +137,11 @@ class Main extends Component {
   }
 
   render() {
-    const { classes, setActiveApp } = this.props;
+    const { classes, setActiveApp, user } = this.props;
     return (
       <React.Fragment>
         <CssBaseline />
+        <Topbar noTabs={user.active_app === null} />
         <div className={classes.root}>
           <Grid container justify="center">
             <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
@@ -154,7 +159,7 @@ class Main extends Component {
                     <Button onClick={this.openDialog}  variant="outlined" className={classes.actionButtom}>
                       Install
                     </Button>
-                    <Button onClick={() => setActiveApp('demoapp')} color='primary' variant="contained" className={classes.actionButtom}>
+                    <Button onClick={() => setActiveApp('demoapp', 'demoapp-gatespace-io')} color='primary' variant="contained" className={classes.actionButtom}>
                       Dashboard
                     </Button>
                   </div>
@@ -163,6 +168,7 @@ class Main extends Component {
               <Grid item xs={12} md={4}>
                 <Paper className={classes.paper}>
                     <ButtonBase
+                    onClick={() => this.props.goToPage('add-project')}
                     focusRipple
                     className={classes.buttonbase}
                     focusVisibleClassName={classes.focusVisible}
@@ -204,7 +210,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    setActiveApp: (app) => dispatch(setActiveApp(app))
+    setActiveApp: (appid, appname) => dispatch(setActiveApp(appid, appname)),
+    goToPage: (path) => dispatch(push(path))
 })
 
 export default compose(

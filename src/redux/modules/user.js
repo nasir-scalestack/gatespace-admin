@@ -1,13 +1,31 @@
+import { push } from 'connected-react-router';
+
 export const OPTIONS_REQUESTED = 'user/OPTIONS_REQUESTED'
 export const OPTIONS = 'user/OPTIONS'
 
-export const setActiveApp = (appId) => ({
-  type:  OPTIONS,
-  active_app: appId
-})
+export const setActiveApp = (appId, appName) => dispatch => {
+
+  dispatch({
+    type:  OPTIONS,
+    active_app: appId,
+    app_name: appName,
+  })
+  dispatch(push('/dashboard'))
+}
+
+export const removeActiveApp = () => dispatch => {
+    
+    dispatch({
+      type:  OPTIONS,
+      active_app: null,
+      app_name: null
+    })
+}
+
 
 const initialState = {
-  active_app: null
+  active_app: null,
+  app_name: null
 }
 
 export default (state = initialState, action) => {
@@ -20,7 +38,8 @@ export default (state = initialState, action) => {
     case OPTIONS:
       return {
         ...state,
-        active_app: action.active_app
+        active_app: action.active_app,
+        app_name: action.app_name
       }
 
     default:
