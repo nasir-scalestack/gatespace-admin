@@ -1,9 +1,37 @@
-// in src/App.js
-import React from 'react';
-import { Admin, Resource } from 'react-admin';
-import jsonServerProvider from 'ra-data-json-server';
+import React, { Component } from 'react';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import './App.css';
+import Routes from './routes'
 
-const dataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
-const App = () => <Admin dataProvider={dataProvider} />;
+const theme = createMuiTheme({
+  palette: {
+    secondary: {
+      main: '#21252e'
+    },
+    primary: {
+      main: '#fa573a'
+    }
+  },
+  typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '"Lato"',
+      'sans-serif'
+    ].join(',')
+  }
+});
+
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <MuiThemeProvider theme={theme}>
+          <Routes />
+        </MuiThemeProvider>
+      </div>
+    );
+  }
+}
 
 export default App;
