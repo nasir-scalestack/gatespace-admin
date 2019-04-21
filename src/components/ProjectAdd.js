@@ -18,7 +18,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Back from './common/Back'
 import TextField from '@material-ui/core/TextField';
-
+import Zones from './Zones';
 
 const qs = require('query-string');
 const backgroundShape = require('../images/shape.svg');
@@ -97,7 +97,7 @@ const styles = theme => ({
 const getSteps = () => {
   return [
     'Project',
-    'Zones',
+    'Gates',
     'Confirm',
     'Terms',
     'Done'
@@ -111,7 +111,8 @@ class ProjectAdd extends Component {
     receivingAccount: 'Home Account',
     repaimentAccount: 'Saving Account',
     termsChecked: false,
-    labelWidth: 0
+    labelWidth: 0,
+    name: null
   }
 
   componentDidMount() {
@@ -211,7 +212,7 @@ class ProjectAdd extends Component {
                           Project ID
                         </Typography>
                         <Typography variant="h5" gutterBottom>
-                          --
+                          {this.state.name === null || this.state.name === '' ? '--' : `${this.state.name}-gatespace-io`}
                         </Typography>
                       </div>
                       <div>
@@ -225,6 +226,8 @@ class ProjectAdd extends Component {
                             id="name"
                             label="Project Name"
                             type="text"
+                            value={this.state.name}
+                            onChange={(event) => this.setState({name: event.target.value})}
                             fullWidth
                           />
                         </FormControl>
@@ -239,43 +242,14 @@ class ProjectAdd extends Component {
                       <div>
                         <div style={{marginBottom: 32}}>
                           <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
-                            Bank information
+                            Gate Selection
                           </Typography>
                           <Typography variant="body1" gutterBottom>
-                            Select account to receive the money
-                          </Typography>
-                        </div>
-                        <div style={{marginBottom: 32}}>
-                          <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            Bank
-                          </Typography>
-                          <Typography variant="h5" gutterBottom>
-                            N26
+                            Select the gates you would like to receive real-time proximity data
                           </Typography>
                         </div>
                         <div>
-                          <Typography style={{textTransform: 'uppercase', marginBottom: 20}} color='secondary' gutterBottom>
-                            Receiving account
-                          </Typography>
-                          <FormControl variant="outlined" className={classes.formControl}>
-                            <Select
-                              value={this.state.receivingAccount}
-                              onChange={this.handleChange}
-                              input={
-                                <OutlinedInput
-                                  labelWidth={this.state.labelWidth}
-                                  name="receivingAccount"
-                                />
-                              }
-                            >
-                              <MenuItem value="">
-                                <em></em>
-                              </MenuItem>
-                              <MenuItem value={'0297 00988200918'}>First account</MenuItem>
-                              <MenuItem value={'0235 00235233332'}>Second account</MenuItem>
-                              <MenuItem value={'1256 00864222212'}>Third account</MenuItem>
-                            </Select>
-                          </FormControl>
+                          <Zones />
                         </div>
                       </div>
                     </Paper>
