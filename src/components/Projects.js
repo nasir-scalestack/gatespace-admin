@@ -10,8 +10,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import InstructionDialog from './dialogs/InstructionDialog';
 import SwipeDialog from './dialogs/SwipeDialog';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Icon from '@material-ui/core/Icon';
 
-import Topbar from './Topbar';
+import { setActiveApp } from '../redux/modules/user';
 
 const backgroundShape = require('../images/shape.svg');
 
@@ -36,6 +38,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3,
     textAlign: 'left',
     color: theme.palette.text.secondary,
+    height: 200
   },
   rangeLabel: {
     display: 'flex',
@@ -89,6 +92,18 @@ const styles = theme => ({
     position: 'absolute',
     top: '40%',
     left: '40%'
+  },
+  icon: {
+      color: theme.palette.primary.main,
+      display: 'inline-block',
+      fontSize: '48px',
+  },
+  buttonbase: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100%'
   }
 });
 
@@ -118,11 +133,10 @@ class Main extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, setActiveApp } = this.props;
     return (
       <React.Fragment>
         <CssBaseline />
-        <Topbar />
         <div className={classes.root}>
           <Grid container justify="center">
             <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
@@ -130,76 +144,45 @@ class Main extends Component {
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                      First title
-                    </Typography>
-                    <Typography variant="body2" gutterBottom>
-                      A first title style <br/> with two lines
-                    </Typography>
-                  </div>
-                  <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <Button color='primary' variant="contained" className={classes.actionButtom}>
-                      Learn more
-                    </Button>
-                  </div>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Paper className={classes.paper}>
-                  <div className={classes.box}>
-                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                      Another box
+                      Demo Application
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                      A default box
-                    </Typography>
-                  </div>
-                  <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <Button color='primary' variant="contained" className={classes.actionButtom}>
-                      Learn more
-                    </Button>
-                  </div>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Paper className={classes.paper}>
-                  <div className={classes.box}>
-                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                      A box with a carousel
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>
-                      If you click in Getting Started, you will see a nice carousel
+                      demoapp-gatespace-io
                     </Typography>
                   </div>
                   <div className={classes.alignRight}>
                     <Button onClick={this.openDialog}  variant="outlined" className={classes.actionButtom}>
-                      Learn more
+                      Install
                     </Button>
-                    <Button onClick={this.openGetStartedDialog} color='primary' variant="contained" className={classes.actionButtom}>
+                    <Button onClick={() => setActiveApp('demoapp')} color='primary' variant="contained" className={classes.actionButtom}>
                       Dashboard
                     </Button>
                   </div>
                 </Paper>
               </Grid>
-              <Grid container item xs={12}>
-                  <Grid item xs={12}>
-                    <Paper className={classes.paper}>
-                      <div>
-                        <div className={classes.box}>
-                          <Typography color='secondary' gutterBottom>
-                            Full box
-                          </Typography>
-                          <Typography variant="body1" gutterBottom>
-                            This is an example of a full-width box
-                          </Typography>
-                        </div>
-                        <div className={classes.alignRight}>
-                          <Button color='primary' variant="contained" className={classes.actionButtom}>
-                            Learn more
-                          </Button>
-                        </div>
-                      </div>
-                    </Paper>
-                </Grid>
+              <Grid item xs={12} md={4}>
+                <Paper className={classes.paper}>
+                    <ButtonBase
+                    focusRipple
+                    className={classes.buttonbase}
+                    focusVisibleClassName={classes.focusVisible}
+                    style={{
+                        width: '100%',
+                    }}
+                    >
+                        <Icon className={classes.icon}>add</Icon>
+                        <Typography
+                            component="span"
+                            variant="subtitle1"
+                            color="inherit"
+                            className={classes.imageTitle}
+                            >
+
+                            Add a New App
+                        <span className={classes.imageMarked} />
+                        </Typography>
+                    </ButtonBase>
+                </Paper>
               </Grid>
             </Grid>
           </Grid>
@@ -220,8 +203,12 @@ const mapStateToProps = (state) => ({
   user: state.user
 })
 
+const mapDispatchToProps = (dispatch) => ({
+    setActiveApp: (app) => dispatch(setActiveApp(app))
+})
+
 export default compose(
-  connect(mapStateToProps, {}),
+  connect(mapStateToProps, mapDispatchToProps),
   withRouter,
   withStyles(styles),
   )(Main);

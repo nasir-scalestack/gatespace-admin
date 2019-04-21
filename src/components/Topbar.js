@@ -15,8 +15,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Menu from './Menu';
 
-const logo = require('../images/logo.svg');
-
 const styles = theme => ({
   appBar: {
     position: 'relative',
