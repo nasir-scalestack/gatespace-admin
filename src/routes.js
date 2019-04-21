@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom'
 import Dashboard from './components/Dashboard'
-import AddProject from './components/Wizard'
+import ProjectAdd from './components/ProjectAdd'
 import Cards from './components/Cards'
 import Projects from './components/Projects'
 import Main from './components/Main'
@@ -19,7 +19,7 @@ class Routes extends React.Component {
           (<Switch>
                 <Route exact path='/dashboard' component={Dashboard}/>
                 <Route exact path='/signup' component={Signup} />
-                <Route exact path='/add-project' component={AddProject} />
+                <Route exact path='/add-project' component={ProjectAdd} />
                 <Route exact path='/cards' component={Cards} />
           </Switch>)
           :
