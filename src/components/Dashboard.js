@@ -1,18 +1,44 @@
 import React,  { Component } from 'react';
-import { connect } from 'react-redux';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { withRouter, Link } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+// react plugin for creating charts
+import ChartistGraph from "react-chartist";
+// @material-ui/core
+import withStyles from "@material-ui/core/styles/withStyles";
+import Icon from "@material-ui/core/Icon";
+// @material-ui/icons
+import Store from "@material-ui/icons/Store";
+import Warning from "@material-ui/icons/Warning";
+import DateRange from "@material-ui/icons/DateRange";
+import LocalOffer from "@material-ui/icons/LocalOffer";
+import Update from "@material-ui/icons/Update";
+import ArrowUpward from "@material-ui/icons/ArrowUpward";
+import AccessTime from "@material-ui/icons/AccessTime";
+import Accessibility from "@material-ui/icons/Accessibility";
+import BugReport from "@material-ui/icons/BugReport";
+import Code from "@material-ui/icons/Code";
+import Cloud from "@material-ui/icons/Cloud";
 import Grid from '@material-ui/core/Grid';
-import Slider from '@material-ui/lab/Slider';
-import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import SimpleLineChart from './SimpleLineChart';
-import Months from './common/Months';
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
-import Loading from './common/Loading';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+// core components
+import GridItem from "./Grid/GridItem";
+import GridContainer from "./Grid/GridContainer";
+import Card from "./Card/Card";
+import CardHeader from "./Card/CardHeader";
+import CardIcon from "./Card/CardIcon";
+import CardBody from "./Card/CardBody";
+import CardFooter from "./Card/CardFooter";
+import Danger from "./Typography/Danger";
+
+import { bugs, website, server } from "../constants/general";
+
+import {
+  dailySalesChart,
+  emailsSubscriptionChart,
+  completedTasksChart
+} from "../constants/charts";
+
+import dashboardStyle from "../assets/jss/material-dashboard-react/views/dashboardStyle";
 
 import Topbar from './Topbar';
 
@@ -32,7 +58,7 @@ const styles = theme => ({
     paddingBottom: 200
   },
   grid: {
-    width: 1200,
+    width: 1550,
     margin: `0 ${theme.spacing.unit * 2}px`,
     [theme.breakpoints.down('sm')]: {
       width: 'calc(100% - 20px)'
@@ -110,270 +136,190 @@ const styles = theme => ({
   }
 });
 
-const monthRange = Months;
+
 
 class Dashboard extends Component {
 
   state = {
-    loading: true,
-    amount: 15000,
-    period: 3,
-    start: 0,
-    monthlyInterest: 0,
-    totalInterest: 0,
-    monthlyPayment: 0,
-    totalPayment: 0,
-    data: []
+    value: 0
+
   };
 
-  updateValues() {
-    const { amount, period, start } = this.state;
-    const monthlyInterest = (amount)*(Math.pow(0.01*(1.01), period))/(Math.pow(0.01, period - 1))
-    const totalInterest = monthlyInterest * (period + start);
-    const totalPayment = amount + totalInterest;
-    const monthlyPayment = period > start ? totalPayment/(period - start) : totalPayment/(period)
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
 
-    const data = Array.from({length: period + start}, (value, i) => {
-      const delayed = i < start;
-      return {
-        name: monthRange[i],
-        'Type': delayed ? 0 : Math.ceil(monthlyPayment).toFixed(0),
-        'OtherType': Math.ceil(monthlyInterest).toFixed(0)
-      }
-    })
-
-    this.setState({monthlyInterest, totalInterest, totalPayment, monthlyPayment, data})
-  }
-
-  componentDidMount() {
-    this.updateValues();
-  }
-
-  handleChangeAmount = (event, value) => {
-    this.setState({amount: value, loading: false});
-    this.updateValues();
-  }
-
-  handleChangePeriod = (event, value) => {
-    this.setState({period: value, loading: false});
-    this.updateValues();
-  }
-
-  handleChangeStart = (event, value) => {
-    this.setState({start: value, loading: false});
-    this.updateValues();
-  }
+  handleChangeIndex = index => {
+    this.setState({ value: index });
+  };
 
   render() {
     const { classes } = this.props;
-    const { amount, period, start, monthlyPayment,
-      monthlyInterest, data, loading } = this.state;
-    const currentPath = this.props.location.pathname
-
     return (
       <React.Fragment>
         <CssBaseline />
-        <Topbar currentPath={currentPath} />
+        <Topbar />
         <div className={classes.root}>
-          <Grid container justify="center">
-            <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
-              <Grid item xs={12}>
-                <div className={classes.topBar}>
-                  <div className={classes.block}>
-                    <Typography variant="h6" gutterBottom>Dashboard</Typography>
-                    <Typography variant="body1">
-                      Adjust and play with our sliders.
-                    </Typography>
-                  </div>
-                  <div>
-                    <Button variant="outlined" className={classes.outlinedButtom}>
-                      Get help
-                    </Button>
-                  </div>
+       
+        <GridContainer container justify="center">
+        <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
+          <GridItem xs={12} sm={6} md={3}>
+            <Card>
+              <CardHeader color="warning" stats icon>
+                <CardIcon color="warning">
+                  <Icon>content_copy</Icon>
+                </CardIcon>
+                <p className={classes.cardCategory}>Used Space</p>
+                <h3 className={classes.cardTitle}>
+                  49/50 <small>GB</small>
+                </h3>
+              </CardHeader>
+              <CardFooter stats>
+                <div className={classes.stats}>
+                  <DateRange />
+                  Last 24 Hours
                 </div>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Paper className={classes.paper}>
-                  <div>
-                    <Typography variant="subtitle1" gutterBottom>
-                      How much you want to transfer
-                    </Typography>
-                    <Typography variant="body1">
-                      Use slider to set the amount you need.
-                    </Typography>
-                    <div className={classes.blockCenter}>
-                      <Typography color='secondary' variant="h6" gutterBottom>
-                        {numeral(amount).format()} USD
-                      </Typography>
-                    </div>
-                    <div>
-                      <Slider
-                        value={amount}
-                        min={20000}
-                        max={150000}
-                        step={15000}
-                        onChange={this.handleChangeAmount}
-                      />
-                    </div>
-                    <div className={classes.rangeLabel}>
-                      <div>
-                        <Typography variant="subtitle2">
-                          15,000 USD
-                        </Typography>
-                      </div>
-                      <div>
-                        <Typography variant="subtitle2">
-                          150,000 USD
-                        </Typography>
-                      </div>
-                    </div>
-                  </div>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Paper className={classes.paper}>
-                  <div>
-                    <Typography variant="subtitle1" gutterBottom>
-                      Period
-                    </Typography>
-                    <Typography variant="body1">
-                      A sample period
-                    </Typography>
-                    <div className={classes.blockCenter}>
-                      <Typography color='secondary' variant="h6" gutterBottom>
-                        {period} months
-                      </Typography>
-                    </div>
-                    <div>
-                      <Slider
-                        value={period}
-                        min={1}
-                        max={6}
-                        step={1}
-                        onChange={this.handleChangePeriod}
-                      />
-                    </div>
-                    <div className={classes.rangeLabel}>
-                      <div>
-                        <Typography variant="subtitle2">
-                          1 month
-                        </Typography>
-                      </div>
-                      <div>
-                        <Typography variant="subtitle2">
-                          6 months
-                        </Typography>
-                      </div>
-                    </div>
-                  </div>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Paper className={classes.paper}>
-                  <div>
-                    <Typography variant="subtitle1" gutterBottom>
-                      Start date
-                    </Typography>
-                    <Typography variant="body1">
-                      Set your preferred start date.
-                    </Typography>
-                    <div className={classes.blockCenter}>
-                      <Typography color='secondary' variant="h6" gutterBottom>
-                        {monthRange[start]}
-                      </Typography>
-                    </div>
-                    <div>
-                      <Slider
-                        value={start}
-                        min={0}
-                        max={5}
-                        step={1}
-                        onChange={this.handleChangeStart}
-                      />
-                    </div>
-                    <div className={classes.rangeLabel}>
-                      <div>
-                        <Typography variant="subtitle2">
-                          Dec 2018
-                        </Typography>
-                      </div>
-                      <div>
-                        <Typography variant="subtitle2">
-                          May 2019
-                        </Typography>
-                      </div>
-                    </div>
-                  </div>
-                </Paper>
-              </Grid>
-              <Grid container spacing={24} justify="center">
-                <Grid item xs={12} md={8} >
-                  <Paper className={classes.paper} style={{position: 'relative'}}>
-                    <Loading loading={loading} />
-                    <div className={loading ? classes.loadingState : ''}>
-                      <Typography variant="subtitle1" gutterBottom>
-                        Some details
-                      </Typography>
-                      <Typography variant="body1">
-                        Details about the graph
-                      </Typography>
-                      <div style={{marginTop: 14, marginBottom: 14}}>
-                        <div className={classes.inlining}>
-                          <Avatar className={classes.loanAvatar}></Avatar>
-                          <Typography className={classes.inlining} variant="subtitle2" gutterBottom>
-                            Type
-                          </Typography>
-                          <Typography className={classes.inlining} color='secondary' variant="h6" gutterBottom>
-                            {numeral(monthlyPayment).format()} units
-                          </Typography>
-                        </div>
-                        <div className={classes.inlining}>
-                          <Avatar className={classes.interestAvatar}></Avatar>
-                          <Typography className={classes.inlining} variant="subtitle2" gutterBottom>
-                            Othe type
-                          </Typography>
-                          <Typography className={classes.inlining} color="secondary" variant="h6" gutterBottom>
-                            {numeral(monthlyInterest).format()} units
-                          </Typography>
-                        </div>
-                      </div>
-                      <div >
-                        <SimpleLineChart data={data} />
-                      </div>
-                    </div>
-                  </Paper>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Paper className={classes.paper} style={{position: 'relative'}}>
-                  <Loading loading={loading} />
-                  <div className={loading ? classes.loadingState : ''}>
-                    <Typography variant="subtitle1" gutterBottom>
-                      State
-                    </Typography>
-                    <div className={classes.mainBadge}>
-                      <VerifiedUserIcon style={{fontSize: 72}} fontSize={'large'} color={'secondary'} />
-                      <Typography variant="h5" color={'secondary'} gutterBottom>
-                        Verified
-                      </Typography>
-                    </div>
-                    <div className={classes.buttonBar}>
-                      <Button to={{ pathname: "/dashboard", search: `?type=save` }} component={Link} variant="outlined" className={classes.actionButtom}>
-                        Save
-                      </Button>
-                      <Button to={{ pathname: "/dashboard", search: `?type=apply` }} component={Link} color='primary' variant="contained" className={classes.actionButtom}>
-                        Apply
-                      </Button>
-                    </div>
-                  </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Grid>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={6} md={3}>
+            <Card>
+              <CardHeader color="success" stats icon>
+                <CardIcon color="success">
+                  <Store />
+                </CardIcon>
+                <p className={classes.cardCategory}>Revenue</p>
+                <h3 className={classes.cardTitle}>$34,245</h3>
+              </CardHeader>
+              <CardFooter stats>
+                <div className={classes.stats}>
+                  <DateRange />
+                  Last 24 Hours
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={6} md={3}>
+            <Card>
+              <CardHeader color="danger" stats icon>
+                <CardIcon color="danger">
+                  <Icon>info_outline</Icon>
+                </CardIcon>
+                <p className={classes.cardCategory}>Fixed Issues</p>
+                <h3 className={classes.cardTitle}>75</h3>
+              </CardHeader>
+              <CardFooter stats>
+                <div className={classes.stats}>
+                  <LocalOffer />
+                  Tracked from Github
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={6} md={3}>
+            <Card>
+              <CardHeader color="info" stats icon>
+                <CardIcon color="info">
+                  <Accessibility />
+                </CardIcon>
+                <p className={classes.cardCategory}>Followers</p>
+                <h3 className={classes.cardTitle}>+245</h3>
+              </CardHeader>
+              <CardFooter stats>
+                <div className={classes.stats}>
+                  <Update />
+                  Just Updated
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
           </Grid>
+        </GridContainer>
+        <GridContainer container justify="center">
+        <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
+
+          <GridItem xs={12} sm={12} md={4}>
+            <Card chart>
+              <CardHeader color="success">
+                <ChartistGraph
+                  className="ct-chart"
+                  data={dailySalesChart.data}
+                  type="Line"
+                  options={dailySalesChart.options}
+                  listener={dailySalesChart.animation}
+                />
+              </CardHeader>
+              <CardBody>
+                <h4 className={classes.cardTitle}>Daily Sales</h4>
+                <p className={classes.cardCategory}>
+                  <span className={classes.successText}>
+                    <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                  </span>{" "}
+                  increase in today sales.
+                </p>
+              </CardBody>
+              <CardFooter chart>
+                <div className={classes.stats}>
+                  <AccessTime /> updated 4 minutes ago
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={12} md={4}>
+            <Card chart>
+              <CardHeader color="warning">
+                <ChartistGraph
+                  className="ct-chart"
+                  data={emailsSubscriptionChart.data}
+                  type="Bar"
+                  options={emailsSubscriptionChart.options}
+                  responsiveOptions={emailsSubscriptionChart.responsiveOptions}
+                  listener={emailsSubscriptionChart.animation}
+                />
+              </CardHeader>
+              <CardBody>
+                <h4 className={classes.cardTitle}>Email Subscriptions</h4>
+                <p className={classes.cardCategory}>
+                  Last Campaign Performance
+                </p>
+              </CardBody>
+              <CardFooter chart>
+                <div className={classes.stats}>
+                  <AccessTime /> campaign sent 2 days ago
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={12} md={4}>
+            <Card chart>
+              <CardHeader color="danger">
+                <ChartistGraph
+                  className="ct-chart"
+                  data={completedTasksChart.data}
+                  type="Line"
+                  options={completedTasksChart.options}
+                  listener={completedTasksChart.animation}
+                />
+              </CardHeader>
+              <CardBody>
+                <h4 className={classes.cardTitle}>Completed Tasks</h4>
+                <p className={classes.cardCategory}>
+                  Last Campaign Performance
+                </p>
+              </CardBody>
+              <CardFooter chart>
+                <div className={classes.stats}>
+                  <AccessTime /> campaign sent 2 days ago
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          </Grid>
+        </GridContainer>
         </div>
       </React.Fragment>
     )
   }
 }
 
-export default withRouter(withStyles(styles)(Dashboard));
+export default withStyles(styles)(Dashboard);

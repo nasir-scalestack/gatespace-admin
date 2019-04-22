@@ -109,20 +109,14 @@ class Topbar extends Component {
   }
 
   current = () => {
-    if(this.props.currentPath === '/home') {
+    if(this.props.currentPath === '/dashboard') {
       return 0
     }
-    if(this.props.currentPath === '/dashboard') {
+    if(this.props.currentPath === '/gates') {
       return 1
     }
-    if(this.props.currentPath === '/signup') {
+    if(this.props.currentPath === '/account') {
       return 2
-    }
-    if(this.props.currentPath === '/wizard') {
-      return 3
-    }
-    if(this.props.currentPath === '/cards') {
-      return 4
     }
 
   }
@@ -206,7 +200,7 @@ class Topbar extends Component {
                           <AppBar title="Menu" />
                           <List>
                             {MenuRoutes.map((item, index) => (
-                              <ListItem onClick={() => this.props.push(item.pathname)} button key={item.label}>
+                              <ListItem onClick={() => this.props.goToPage(item.pathname)} button key={item.label}>
                                 <ListItemText primary={item.label} />
                               </ListItem>
                             ))}
@@ -219,7 +213,7 @@ class Topbar extends Component {
                           onChange={this.handleChange}
                         >
                           {MenuRoutes.map((item, index) => (
-                            <Tab onClick={() => this.props.push(item.pathname)} key={index} classes={{root: classes.tabItem}} label={item.label} />
+                            <Tab onClick={() => this.props.goToPage(item.pathname)} key={index} classes={{root: classes.tabItem}} label={item.label} />
                           ))}
                         </Tabs>
                       </div>
@@ -238,7 +232,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  removeActiveApp: () => dispatch(removeActiveApp())
+  removeActiveApp: () => dispatch(removeActiveApp()),
+  goToPage: (path) => dispatch(push(path))
 })
 
 
