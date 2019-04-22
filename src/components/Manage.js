@@ -7,12 +7,17 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/lab/Slider';
 import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import SimpleLineChart from './SimpleLineChart';
 import Months from './common/Months';
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
-import Loading from './common/Loading';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import LockIcon from '@material-ui/icons/Lock';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
+import Zones from './Zones'
 import Topbar from './Topbar';
 
 const numeral = require('numeral');
@@ -31,7 +36,7 @@ const styles = theme => ({
     paddingBottom: 200
   },
   grid: {
-    width: 1200,
+    width: 1550,
     margin: `0 ${theme.spacing.unit * 2}px`,
     [theme.breakpoints.down('sm')]: {
       width: 'calc(100% - 20px)'
@@ -115,15 +120,33 @@ class Manage extends Component {
 
   state = {
     loading: true,
-    amount: 15000,
+    amount: 10,
     period: 3,
     start: 0,
     monthlyInterest: 0,
     totalInterest: 0,
     monthlyPayment: 0,
     totalPayment: 0,
-    data: []
+    data: [],
+    checked: [0]
   };
+
+  handleToggle = value => () => {
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      checked: newChecked,
+    });
+  };
+
 
   updateValues() {
     const { amount, period, start } = this.state;
@@ -192,14 +215,14 @@ class Manage extends Component {
                 <Paper className={classes.paper}>
                   <div>
                     <Typography variant="subtitle1" gutterBottom>
-                      How much do you want to spend daily?
+                      Set your daily budget limit
                     </Typography>
                     <Typography variant="body1">
                       Use slider to set the amount you need.
                     </Typography>
                     <div className={classes.blockCenter}>
                       <Typography color='secondary' variant="h6" gutterBottom>
-                        {numeral(amount).format()} USD
+                        {numeral(amount).format()} CAD
                       </Typography>
                     </div>
                     <div>
@@ -290,68 +313,57 @@ class Manage extends Component {
                     <div className={classes.rangeLabel}>
                       <div>
                         <Typography variant="subtitle2">
-                          Dec 2018
+                          April 2019
                         </Typography>
                       </div>
                       <div>
                         <Typography variant="subtitle2">
-                          May 2019
+                          June 2019
                         </Typography>
                       </div>
                     </div>
                   </div>
                 </Paper>
               </Grid>
-              <Grid container spacing={24} justify="center">
+              <Grid container spacing={24} justify="center" style={{margin: '0px'}}>
                 <Grid item xs={12} md={8} >
                   <Paper className={classes.paper} style={{position: 'relative'}}>
-                    <Loading loading={loading} />
-                    <div className={loading ? classes.loadingState : ''}>
+                    <div>
                       <Typography variant="subtitle1" gutterBottom>
-                        Some details
+                        Denver Airport Network
                       </Typography>
                       <Typography variant="body1">
-                        Details about the graph
+                        Below are the available gates you can select
                       </Typography>
-                      <div style={{marginTop: 14, marginBottom: 14}}>
-                        <div className={classes.inlining}>
-                          <Avatar className={classes.loanAvatar}></Avatar>
-                          <Typography className={classes.inlining} variant="subtitle2" gutterBottom>
-                            Type
-                          </Typography>
-                          <Typography className={classes.inlining} color='secondary' variant="h6" gutterBottom>
-                            {numeral(monthlyPayment).format()} units
-                          </Typography>
-                        </div>
-                        <div className={classes.inlining}>
-                          <Avatar className={classes.interestAvatar}></Avatar>
-                          <Typography className={classes.inlining} variant="subtitle2" gutterBottom>
-                            Othe type
-                          </Typography>
-                          <Typography className={classes.inlining} color="secondary" variant="h6" gutterBottom>
-                            {numeral(monthlyInterest).format()} units
-                          </Typography>
-                        </div>
-                      </div>
-                      <div >
-                        <SimpleLineChart data={data} />
-                      </div>
+                      <Zones />
                     </div>
                   </Paper>
               </Grid>
               <Grid item xs={12} md={4}>
                 <Paper className={classes.paper} style={{position: 'relative'}}>
-                  <Loading loading={loading} />
-                  <div className={loading ? classes.loadingState : ''}>
+                  <div>
                     <Typography variant="subtitle1" gutterBottom>
-                      State
+                      Active Gates
                     </Typography>
-                    <div className={classes.mainBadge}>
-                      <VerifiedUserIcon style={{fontSize: 72}} fontSize={'large'} color={'secondary'} />
-                      <Typography variant="h5" color={'secondary'} gutterBottom>
-                        Verified
-                      </Typography>
-                    </div>
+                    <List>
+                        {[0, 1, 2, 3].map(value => (
+                        <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
+                            <Checkbox
+                            checked={this.state.checked.indexOf(value) !== -1}
+                            tabIndex={-1}
+                            disableRipple
+                            />
+                            <ListItemText primary={`Gate Station ${value + 1}`} />
+                            <ListItemSecondaryAction>
+                            <IconButton aria-label="Lock">
+                                {
+                                    value === 0 ? <LockOpenIcon /> : <LockIcon />
+                                }
+                            </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                        ))}
+                    </List>
                     <div className={classes.buttonBar}>
                       <Button to={{ pathname: "/dashboard", search: `?type=save` }} component={Link} variant="outlined" className={classes.actionButtom}>
                         Save
