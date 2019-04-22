@@ -14,7 +14,13 @@ const dashboardStyle = theme => ({
     background: `url(${backgroundShape}) no-repeat`,
     backgroundSize: 'cover',
     backgroundPosition: '0 400px',
-    paddingBottom: 200
+    paddingBottom: 200,
+    paddingTop: 40
+  },
+  outlinedButtom: {
+    textTransform: 'uppercase',
+    margin: theme.spacing.unit,
+    width: 100
   },
   grid: {
     width: 1550,

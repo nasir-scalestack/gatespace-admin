@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom'
 import Dashboard from './components/Dashboard'
 import ProjectAdd from './components/ProjectAdd'
-import Cards from './components/Cards'
+import Manage from './components/Manage'
 import Projects from './components/Projects'
-import Main from './components/Main'
+// import Main from './components/Main'
 import Signup from './components/Signup'
 import ScrollToTop from './components/ScrollTop'
 
@@ -20,7 +20,7 @@ class Routes extends React.Component {
                 <Route exact path='/dashboard' component={Dashboard}/>
                 <Route exact path='/signup' component={Signup} />
                 <Route exact path='/add-project' component={ProjectAdd} />
-                <Route exact path='/cards' component={Cards} />
+                <Route exact path='/manage-gates' component={Manage} />
           </Switch>)
           :
           <Projects />
