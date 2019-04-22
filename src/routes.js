@@ -4,6 +4,7 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import Dashboard from './components/Dashboard'
 import ProjectAdd from './components/ProjectAdd'
 import Manage from './components/Manage'
+import Analytics from './components/Analytics'
 import Projects from './components/Projects'
 import Signup from './components/Signup'
 import Account from './components/Account'
@@ -20,6 +21,7 @@ class Routes extends React.Component {
           (<Switch>
                 <Route exact path='/dashboard' component={Dashboard}/>
                 <Route exact path='/signup' component={Signup} />
+                <Route exact path='/analytics' component={Analytics} />
                 <Route exact path='/add-project' component={ProjectAdd} />
                 <Route exact path='/manage-gates' component={Manage} />
                 <Route exact path='/manage-account' component={Account} />
@@ -34,7 +36,7 @@ class Routes extends React.Component {
 }
 const mapStateToProps = (state) => ({
     user: state.user
-  })
+})
 
 export default withRouter(connect(mapStateToProps, {})(Routes));
   

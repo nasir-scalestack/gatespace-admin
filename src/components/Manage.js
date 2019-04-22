@@ -228,21 +228,21 @@ class Manage extends Component {
                     <div>
                       <Slider
                         value={amount}
-                        min={20000}
-                        max={150000}
-                        step={15000}
+                        min={10}
+                        max={1000}
+                        step={10}
                         onChange={this.handleChangeAmount}
                       />
                     </div>
                     <div className={classes.rangeLabel}>
                       <div>
                         <Typography variant="subtitle2">
-                          15,000 USD
+                          10 CAD
                         </Typography>
                       </div>
                       <div>
                         <Typography variant="subtitle2">
-                          150,000 USD
+                          1,000 USD
                         </Typography>
                       </div>
                     </div>
