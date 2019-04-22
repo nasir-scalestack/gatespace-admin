@@ -7,6 +7,7 @@ import Manage from './components/Manage'
 import Analytics from './components/Analytics'
 import Projects from './components/Projects'
 import Signup from './components/Signup'
+import SignIn from './components/SignIn'
 import Account from './components/Account'
 import Help from './components/Main'
 import ScrollToTop from './components/ScrollTop'
@@ -17,7 +18,7 @@ class Routes extends React.Component {
      return(
        <ScrollToTop>
          {
-            user.active_app !== null || location.pathname === '/add-project' || location.pathname === '/signup' || location.pathname === '/signin' || location.pathname === '/help' ?
+            user.active_app !== null || location.pathname === '/add-project' || location.pathname === '/signup' || location.pathname === '/signin' || location.pathname === '/docs' ?
           (<Switch>
                 <Route exact path='/' component={Dashboard}/>
                 <Route exact path='/signup' component={Signup} />
@@ -25,6 +26,7 @@ class Routes extends React.Component {
                 <Route exact path='/add-project' component={ProjectAdd} />
                 <Route exact path='/manage-gates' component={Manage} />
                 <Route exact path='/manage-account' component={Account} />
+                <Route exact path='/signin' component={SignIn} />
                 <Route exact path='/docs' component={Help} />
           </Switch>)
           :

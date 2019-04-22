@@ -176,6 +176,8 @@ class Topbar extends Component {
                 >
                   <MenuItem onClick={this.handleSwitchProject}>Switch Project</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={() => this.props.goToPage('signin')}>Sign Out</MenuItem>
+
                 </Menu>
                     </>
                   )
