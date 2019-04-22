@@ -78,7 +78,7 @@ function UserProfile(props) {
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Gate Traffic</h4>
             <p className={classes.cardCategoryWhite}>
-              Events table for gate traffic
+              All airline data is grabbed from https://aviation-edge.com/
             </p>
           </CardHeader>
           <CardBody>

@@ -130,15 +130,15 @@ class Main extends Component {
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                      First title
+                      SDK Integration
                     </Typography>
                     <Typography variant="body2" gutterBottom>
-                      A first title style <br/> with two lines
+                      Follow this tutorial to learn how you can implement our SDK with your platform
                     </Typography>
                   </div>
                   <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Button color='primary' variant="contained" className={classes.actionButtom}>
-                      Learn more
+                      View Tutorial
                     </Button>
                   </div>
                 </Paper>
@@ -147,15 +147,15 @@ class Main extends Component {
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                      Another box
+                      API Refernece
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                      A default box
+                      List of available end points you can use to build your own platform
                     </Typography>
                   </div>
                   <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Button color='primary' variant="contained" className={classes.actionButtom}>
-                      Learn more
+                      API Ref
                     </Button>
                   </div>
                 </Paper>
@@ -164,10 +164,10 @@ class Main extends Component {
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                      A box with a carousel
+                      Data Usage & Billing
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                      If you click in Getting Started, you will see a nice carousel
+                      Learn how we bill based on your data usage
                     </Typography>
                   </div>
                   <div className={classes.alignRight}>
@@ -175,7 +175,7 @@ class Main extends Component {
                       Learn more
                     </Button>
                     <Button onClick={this.openGetStartedDialog} color='primary' variant="contained" className={classes.actionButtom}>
-                      Dashboard
+                      Manage
                     </Button>
                   </div>
                 </Paper>
@@ -186,15 +186,15 @@ class Main extends Component {
                       <div>
                         <div className={classes.box}>
                           <Typography color='secondary' gutterBottom>
-                            Full box
+                            Frequently Asked Questions 
                           </Typography>
                           <Typography variant="body1" gutterBottom>
-                            This is an example of a full-width box
+                            --
                           </Typography>
                         </div>
                         <div className={classes.alignRight}>
                           <Button color='primary' variant="contained" className={classes.actionButtom}>
-                            Learn more
+                            Ask a question
                           </Button>
                         </div>
                       </div>

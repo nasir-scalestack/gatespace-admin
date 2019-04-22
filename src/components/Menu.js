@@ -12,7 +12,7 @@ const Menu = [
     pathname: "/manage-gates"
   },
   {
-    label: "Account",
+    label: "Settings",
     pathname: "/manage-account"
   },
   {
