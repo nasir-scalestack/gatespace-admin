@@ -109,19 +109,22 @@ class Topbar extends Component {
   }
 
   current = () => {
-    if(this.props.currentPath === '/dashboard') {
+    const location = this.props.location.pathname;
+    if(location === '/') {
       return 0
     }
-    if(this.props.currentPath === '/analytics') {
+    if(location === '/analytics') {
       return 1
     }
-    if(this.props.currentPath === '/manage-gates') {
+    if(location === '/manage-gates') {
       return 2
     }
-    if(this.props.currentPath === '/manage-account') {
+    if(location === '/manage-account') {
       return 3
     }
-
+    if(location === '/docs') {
+      return 4
+    }
   }
   handleClose = () => {
     this.setState({ anchorEl: null });
@@ -181,7 +184,7 @@ class Topbar extends Component {
               <Grid item xs={12} className={classes.flex}>
                   <div className={classes.inline}>
                     <Typography variant="h6" color="inherit" noWrap>
-                      <Link to='/dashboard' className={classes.link}>
+                      <Link to='/' className={classes.link}>
                         <span className={classes.tagline}>Gatespace</span>
                       </Link>
                     </Typography>
@@ -203,7 +206,7 @@ class Topbar extends Component {
                           <AppBar title="Menu" />
                           <List>
                             {MenuRoutes.map((item, index) => (
-                              <ListItem onClick={() => this.props.goToPage(item.pathname)} button key={item.label}>
+                              <ListItem component={Link} to={{pathname: item.pathname, search: this.props.location.search}} button key={item.label}>
                                 <ListItemText primary={item.label} />
                               </ListItem>
                             ))}
@@ -216,7 +219,7 @@ class Topbar extends Component {
                           onChange={this.handleChange}
                         >
                           {MenuRoutes.map((item, index) => (
-                            <Tab onClick={() => this.props.goToPage(item.pathname)} key={index} classes={{root: classes.tabItem}} label={item.label} />
+                            <Tab key={index} component={Link} to={{pathname: item.pathname, search: this.props.location.search}} classes={{root: classes.tabItem}} label={item.label} />
                           ))}
                         </Tabs>
                       </div>

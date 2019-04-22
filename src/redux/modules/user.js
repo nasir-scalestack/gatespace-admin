@@ -10,7 +10,7 @@ export const setActiveApp = (appId, appName) => dispatch => {
     active_app: appId,
     app_name: appName,
   })
-  dispatch(push('/dashboard'))
+  dispatch(push('/'))
 }
 
 export const removeActiveApp = () => dispatch => {

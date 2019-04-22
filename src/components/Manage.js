@@ -365,10 +365,10 @@ class Manage extends Component {
                         ))}
                     </List>
                     <div className={classes.buttonBar}>
-                      <Button to={{ pathname: "/dashboard", search: `?type=save` }} component={Link} variant="outlined" className={classes.actionButtom}>
+                      <Button to={{ pathname: "/", search: `?type=save` }} component={Link} variant="outlined" className={classes.actionButtom}>
                         Save
                       </Button>
-                      <Button to={{ pathname: "/dashboard", search: `?type=apply` }} component={Link} color='primary' variant="contained" className={classes.actionButtom}>
+                      <Button to={{ pathname: "/", search: `?type=apply` }} component={Link} color='primary' variant="contained" className={classes.actionButtom}>
                         Apply
                       </Button>
                     </div>

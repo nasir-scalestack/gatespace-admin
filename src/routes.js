@@ -19,13 +19,13 @@ class Routes extends React.Component {
          {
             user.active_app !== null || location.pathname === '/add-project' || location.pathname === '/signup' || location.pathname === '/signin' || location.pathname === '/help' ?
           (<Switch>
-                <Route exact path='/dashboard' component={Dashboard}/>
+                <Route exact path='/' component={Dashboard}/>
                 <Route exact path='/signup' component={Signup} />
                 <Route exact path='/analytics' component={Analytics} />
                 <Route exact path='/add-project' component={ProjectAdd} />
                 <Route exact path='/manage-gates' component={Manage} />
                 <Route exact path='/manage-account' component={Account} />
-                <Route exact path='/help' component={Help} />
+                <Route exact path='/docs' component={Help} />
           </Switch>)
           :
           <Projects />

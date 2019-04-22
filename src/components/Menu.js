@@ -1,7 +1,7 @@
 const Menu = [
   {
     label: "Dashboard",
-    pathname: "/dashboard"
+    pathname: "/"
   },
   {
     label: "Analytics",
@@ -14,6 +14,10 @@ const Menu = [
   {
     label: "Account",
     pathname: "/manage-account"
+  },
+  {
+    label: "Docs",
+    pathname: "/docs"
   }
 ];
 

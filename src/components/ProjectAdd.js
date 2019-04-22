@@ -183,7 +183,7 @@ class ProjectAdd extends Component {
     const queryString = this.props.location.search
 
     this.props.history.push({
-      pathname: '/dashboard',
+      pathname: '/',
       search: queryString
     })
   }
