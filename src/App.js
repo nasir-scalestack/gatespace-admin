@@ -7,6 +7,8 @@ import './App.css';
 import Routes from './routes'
 import store, { history }from './redux/store'
 
+import "./assets/css/material-dashboard-react.css?v=1.6.0";
+
 const theme = createMuiTheme({
   palette: {
     secondary: {

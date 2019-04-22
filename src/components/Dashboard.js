@@ -72,9 +72,9 @@ class Dashboard extends Component {
                 <CardIcon color="warning">
                   <Icon>content_copy</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Used Space</p>
+                <p className={classes.cardCategory}>Used Data</p>
                 <h3 className={classes.cardTitle}>
-                  49/50 <small>GB</small>
+                  0/50 <small>GB</small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
@@ -91,8 +91,8 @@ class Dashboard extends Component {
                 <CardIcon color="success">
                   <Store />
                 </CardIcon>
-                <p className={classes.cardCategory}>Revenue</p>
-                <h3 className={classes.cardTitle}>$34,245</h3>
+                <p className={classes.cardCategory}>Daily Budget</p>
+                <h3 className={classes.cardTitle}>$10.00</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
@@ -108,13 +108,13 @@ class Dashboard extends Component {
                 <CardIcon color="danger">
                   <Icon>info_outline</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Fixed Issues</p>
-                <h3 className={classes.cardTitle}>75</h3>
+                <p className={classes.cardCategory}>Active Gates</p>
+                <h3 className={classes.cardTitle}>0</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
                   <LocalOffer />
-                  Tracked from Github
+                  Manage Gates
                 </div>
               </CardFooter>
             </Card>
@@ -125,8 +125,8 @@ class Dashboard extends Component {
                 <CardIcon color="info">
                   <Accessibility />
                 </CardIcon>
-                <p className={classes.cardCategory}>Followers</p>
-                <h3 className={classes.cardTitle}>+245</h3>
+                <p className={classes.cardCategory}>Active Audience</p>
+                <h3 className={classes.cardTitle}>0</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
@@ -153,12 +153,12 @@ class Dashboard extends Component {
                 />
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>Daily Sales</h4>
+                <h4 className={classes.cardTitle}>Gate Events</h4>
                 <p className={classes.cardCategory}>
                   <span className={classes.successText}>
-                    <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                    <ArrowUpward className={classes.upArrowCardCategory} /> 5%
                   </span>{" "}
-                  increase in today sales.
+                  increase in traffic today.
                 </p>
               </CardBody>
               <CardFooter chart>
@@ -181,14 +181,14 @@ class Dashboard extends Component {
                 />
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>Email Subscriptions</h4>
+                <h4 className={classes.cardTitle}>API Usage</h4>
                 <p className={classes.cardCategory}>
-                  Last Campaign Performance
+                  iOS & Android are combined
                 </p>
               </CardBody>
               <CardFooter chart>
-                <div className={classes.stats}>
-                  <AccessTime /> campaign sent 2 days ago
+              <div className={classes.stats}>
+                  <AccessTime /> updated 10 minutes ago
                 </div>
               </CardFooter>
             </Card>
@@ -205,14 +205,14 @@ class Dashboard extends Component {
                 />
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>Completed Tasks</h4>
+                <h4 className={classes.cardTitle}>Audience Engagement</h4>
                 <p className={classes.cardCategory}>
                   Last Campaign Performance
                 </p>
               </CardBody>
               <CardFooter chart>
                 <div className={classes.stats}>
-                  <AccessTime /> campaign sent 2 days ago
+                  <AccessTime /> updated 10 minutes ago
                 </div>
               </CardFooter>
             </Card>

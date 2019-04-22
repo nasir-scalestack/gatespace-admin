@@ -154,7 +154,6 @@ class ProjectAdd extends Component {
       return 'Install';
     }
     if(this.state.activeStep === 5) {
-      this.props.setActiveApp('app-id','new-app')
       return 'Done';
     }
     return 'Next';
@@ -458,7 +457,7 @@ PLEASE NOTE: We reserve the right, at our sole discretion, to change, modify or 
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={activeStep !== 5 ? this.handleNext : this.goToDashboard}
+                      onClick={activeStep !== 6 ? this.handleNext : this.props.setActiveApp('app-id','new-app-gatespace-io')}
                       size='large'
                       disabled={this.state.activeStep === 3 && !this.state.termsChecked}
                     >
