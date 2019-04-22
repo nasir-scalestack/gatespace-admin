@@ -149,17 +149,17 @@ class Main extends Component {
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                      Demo Application
+                      Airbnb App
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                      demoapp-gatespace-io
+                      airbnb-gatespace-io
                     </Typography>
                   </div>
                   <div className={classes.alignRight}>
                     <Button onClick={this.openDialog}  variant="outlined" className={classes.actionButtom}>
-                      Install
+                      Get SDK
                     </Button>
-                    <Button onClick={() => setActiveApp('demoapp', 'demoapp-gatespace-io')} color='primary' variant="contained" className={classes.actionButtom}>
+                    <Button onClick={() => setActiveApp('airbnb', 'airbnb-gatespace-io')} color='primary' variant="contained" className={classes.actionButtom}>
                       Dashboard
                     </Button>
                   </div>

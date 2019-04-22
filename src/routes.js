@@ -5,8 +5,9 @@ import Dashboard from './components/Dashboard'
 import ProjectAdd from './components/ProjectAdd'
 import Manage from './components/Manage'
 import Projects from './components/Projects'
-// import Main from './components/Main'
 import Signup from './components/Signup'
+import Account from './components/Account'
+import Help from './components/Main'
 import ScrollToTop from './components/ScrollTop'
 
 class Routes extends React.Component {
@@ -15,12 +16,14 @@ class Routes extends React.Component {
      return(
        <ScrollToTop>
          {
-            user.active_app !== null || location.pathname === '/add-project' ?
+            user.active_app !== null || location.pathname === '/add-project' || location.pathname === '/signup' || location.pathname === '/signin' || location.pathname === '/help' ?
           (<Switch>
                 <Route exact path='/dashboard' component={Dashboard}/>
                 <Route exact path='/signup' component={Signup} />
                 <Route exact path='/add-project' component={ProjectAdd} />
                 <Route exact path='/manage-gates' component={Manage} />
+                <Route exact path='/manage-account' component={Account} />
+                <Route exact path='/help' component={Help} />
           </Switch>)
           :
           <Projects />

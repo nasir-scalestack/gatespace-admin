@@ -4,12 +4,16 @@ const Menu = [
     pathname: "/dashboard"
   },
   {
+    label: "Analytics",
+    pathname: "/analytics"
+  },
+  {
     label: "Manage Gates",
     pathname: "/manage-gates"
   },
   {
     label: "Account",
-    pathname: "/account"
+    pathname: "/manage-account"
   }
 ];
 
