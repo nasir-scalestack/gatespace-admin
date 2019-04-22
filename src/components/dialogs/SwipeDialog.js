@@ -8,7 +8,7 @@ import SwipeableViews from 'react-swipeable-views';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import { autoPlay } from 'react-swipeable-views-utils';
 
-const logo = require('../../images/logo.svg');
+const logo = require('../../assets/img/logo.svg');
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 

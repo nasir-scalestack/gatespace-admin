@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import CardItem from './cards/CardItem';
 import Topbar from './Topbar';
 import SectionHeader from './typo/SectionHeader';
-const backgroundShape = require('../images/shape.svg');
+const backgroundShape = require('../assets/img/shape.svg');
 
 const styles = theme => ({
   root: {

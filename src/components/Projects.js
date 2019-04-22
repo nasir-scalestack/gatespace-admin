@@ -19,7 +19,7 @@ import Topbar from './Topbar';
 
 import { setActiveApp } from '../redux/modules/user';
 
-const backgroundShape = require('../images/shape.svg');
+const backgroundShape = require('../assets/img/shape.svg');
 
 const styles = theme => ({
   root: {

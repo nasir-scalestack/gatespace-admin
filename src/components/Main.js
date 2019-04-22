@@ -13,7 +13,7 @@ import SwipeDialog from './dialogs/SwipeDialog';
 
 import Topbar from './Topbar';
 
-const backgroundShape = require('../images/shape.svg');
+const backgroundShape = require('../assets/img/shape.svg');
 
 const styles = theme => ({
   root: {

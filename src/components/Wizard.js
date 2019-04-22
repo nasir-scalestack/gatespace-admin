@@ -19,7 +19,7 @@ import Select from '@material-ui/core/Select';
 import Back from './common/Back'
 
 const qs = require('query-string');
-const backgroundShape = require('../images/shape.svg');
+const backgroundShape = require('../assets/img/shape.svg');
 
 const numeral = require('numeral');
 numeral.defaultFormat('0,000');

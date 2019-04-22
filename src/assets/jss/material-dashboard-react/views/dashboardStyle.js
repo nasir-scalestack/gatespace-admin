@@ -4,8 +4,25 @@ import {
   grayColor,
   hexToRgb
 } from "../../material-dashboard-react";
+const backgroundShape = require('../../../img/shape.svg');
 
-const dashboardStyle = {
+const dashboardStyle = theme => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.grey['100'],
+    overflow: 'hidden',
+    background: `url(${backgroundShape}) no-repeat`,
+    backgroundSize: 'cover',
+    backgroundPosition: '0 400px',
+    paddingBottom: 200
+  },
+  grid: {
+    width: 1550,
+    margin: `0 ${theme.spacing.unit * 2}px`,
+    [theme.breakpoints.down('sm')]: {
+      width: 'calc(100% - 20px)'
+    }
+  },
   successText: {
     color: successColor[0]
   },
@@ -77,6 +94,6 @@ const dashboardStyle = {
       lineHeight: "1"
     }
   }
-};
+});
 
 export default dashboardStyle;
