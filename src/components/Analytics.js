@@ -112,6 +112,7 @@ class UserProfile extends React.Component {
           snapshot.val().time,
           snapshot.val().time,
           action,
+          snapshot.val().code,
         ];
 
         this.setState(prevState => ({
@@ -159,6 +160,7 @@ class UserProfile extends React.Component {
                         'Gate Enter',
                         'Gate Exit',
                         'Action',
+                        'Discount',
                       ]}
                       tableData={[...this.state.events]}
                     />
