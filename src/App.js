@@ -1,9 +1,41 @@
-// in src/App.js
-import React from 'react';
-import { Admin, Resource } from 'react-admin';
-import jsonServerProvider from 'ra-data-json-server';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ConnectedRouter } from 'connected-react-router';
 
-const dataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
-const App = () => <Admin dataProvider={dataProvider} />;
+import './App.css';
+import Routes from './routes';
+import store, { history } from './redux/store';
+
+import './assets/css/material-dashboard-react.css?v=1.6.0';
+
+const theme = createMuiTheme({
+  palette: {
+    secondary: {
+      main: '#21252e',
+    },
+    primary: {
+      main: '#fa573a',
+    },
+  },
+  typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: ['"Lato"', 'sans-serif'].join(','),
+  },
+});
+
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <MuiThemeProvider theme={theme}>
+            <Routes />
+          </MuiThemeProvider>
+        </ConnectedRouter>
+      </Provider>
+    );
+  }
+}
 
 export default App;
