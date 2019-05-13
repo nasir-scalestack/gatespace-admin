@@ -2,6 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function(ComposedComponent) {
@@ -11,18 +12,19 @@ export default function(ComposedComponent) {
     };
 
     componentWillMount() {
-      if (this.props.authenticated === null) {
-        this.context.router.history.push('/');
+      if (this.props.authenticated === false) {
+        this.props.history.push('/signin');
       }
     }
 
     componentWillUpdate(nextProps) {
       if (!nextProps.authenticated) {
-        this.context.router.history.push('/');
+        this.props.history.push('/signin');
       }
     }
 
     render() {
+      console.log(this.props);
       if (this.props.authenticated) {
         return <ComposedComponent {...this.props} />;
       }
@@ -34,5 +36,5 @@ export default function(ComposedComponent) {
     return { authenticated: state.auth };
   }
 
-  return connect(mapStateToProps)(Authentication);
+  return withRouter(connect(mapStateToProps)(Authentication));
 }

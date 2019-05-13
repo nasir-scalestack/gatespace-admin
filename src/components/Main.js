@@ -1,4 +1,4 @@
-import React,  { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -23,14 +23,14 @@ const styles = theme => ({
     background: `url(${backgroundShape}) no-repeat`,
     backgroundSize: 'cover',
     backgroundPosition: '0 400px',
-    paddingBottom: 200
+    paddingBottom: 200,
   },
   grid: {
     width: 1200,
     marginTop: 40,
     [theme.breakpoints.down('sm')]: {
-      width: 'calc(100% - 20px)'
-    }
+      width: 'calc(100% - 20px)',
+    },
   },
   paper: {
     padding: theme.spacing.unit * 3,
@@ -40,82 +40,81 @@ const styles = theme => ({
   rangeLabel: {
     display: 'flex',
     justifyContent: 'space-between',
-    paddingTop: theme.spacing.unit * 2
+    paddingTop: theme.spacing.unit * 2,
   },
   topBar: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 32
+    marginTop: 32,
   },
   outlinedButtom: {
     textTransform: 'uppercase',
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
   },
   actionButtom: {
     textTransform: 'uppercase',
     margin: theme.spacing.unit,
-    width: 152
+    width: 152,
   },
   blockCenter: {
     padding: theme.spacing.unit * 2,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   block: {
     padding: theme.spacing.unit * 2,
   },
   box: {
     marginBottom: 40,
-    height: 65
+    height: 65,
   },
   inlining: {
     display: 'inline-block',
-    marginRight: 10
+    marginRight: 10,
   },
   buttonBar: {
-    display: 'flex'
+    display: 'flex',
   },
   alignRight: {
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   noBorder: {
-    borderBottomStyle: 'hidden'
+    borderBottomStyle: 'hidden',
   },
   loadingState: {
-    opacity: 0.05
+    opacity: 0.05,
   },
   loadingMessage: {
     position: 'absolute',
     top: '40%',
-    left: '40%'
-  }
+    left: '40%',
+  },
 });
 
 class Main extends Component {
-
   state = {
     learnMoredialog: false,
-    getStartedDialog: false
+    getStartedDialog: false,
   };
 
   componentDidMount() {}
 
-  openDialog = (event) => {
-    this.setState({learnMoredialog: true});
-  }
+  openDialog = event => {
+    this.setState({ learnMoredialog: true });
+  };
 
-  dialogClose = (event) => {
-    this.setState({learnMoredialog: false});
-  }
+  dialogClose = event => {
+    this.setState({ learnMoredialog: false });
+  };
 
-  openGetStartedDialog = (event) => {
-    this.setState({getStartedDialog: true});
-  }
+  openGetStartedDialog = event => {
+    this.setState({ getStartedDialog: true });
+  };
 
-  closeGetStartedDialog = (event) => {
-    this.setState({getStartedDialog: false});
-  }
+  closeGetStartedDialog = event => {
+    this.setState({ getStartedDialog: false });
+  };
 
   render() {
     const { classes } = this.props;
@@ -125,19 +124,34 @@ class Main extends Component {
         <Topbar />
         <div className={classes.root}>
           <Grid container justify="center">
-            <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
+            <Grid
+              spacing={24}
+              alignItems="center"
+              justify="center"
+              container
+              className={classes.grid}
+            >
               <Grid item xs={12} md={4}>
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
-                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                    <Typography
+                      style={{ textTransform: 'uppercase' }}
+                      color="secondary"
+                      gutterBottom
+                    >
                       SDK Integration
                     </Typography>
                     <Typography variant="body2" gutterBottom>
-                      Follow this tutorial to learn how you can implement our SDK with your platform
+                      Follow this tutorial to learn how you can implement our
+                      SDK with your platform
                     </Typography>
                   </div>
-                  <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <Button color='primary' variant="contained" className={classes.actionButtom}>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      className={classes.actionButtom}
+                    >
                       View Tutorial
                     </Button>
                   </div>
@@ -146,15 +160,24 @@ class Main extends Component {
               <Grid item xs={12} md={4}>
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
-                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                    <Typography
+                      style={{ textTransform: 'uppercase' }}
+                      color="secondary"
+                      gutterBottom
+                    >
                       API Refernece
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                      List of available end points you can use to build your own platform
+                      List of available end points you can use to build your own
+                      platform
                     </Typography>
                   </div>
-                  <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <Button color='primary' variant="contained" className={classes.actionButtom}>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      className={classes.actionButtom}
+                    >
                       API Ref
                     </Button>
                   </div>
@@ -163,7 +186,11 @@ class Main extends Component {
               <Grid item xs={12} md={4}>
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
-                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                    <Typography
+                      style={{ textTransform: 'uppercase' }}
+                      color="secondary"
+                      gutterBottom
+                    >
                       Data Usage & Billing
                     </Typography>
                     <Typography variant="body1" gutterBottom>
@@ -171,57 +198,74 @@ class Main extends Component {
                     </Typography>
                   </div>
                   <div className={classes.alignRight}>
-                    <Button onClick={this.openDialog}  variant="outlined" className={classes.actionButtom}>
+                    <Button
+                      onClick={this.openDialog}
+                      variant="outlined"
+                      className={classes.actionButtom}
+                    >
                       Learn more
                     </Button>
-                    <Button onClick={this.openGetStartedDialog} color='primary' variant="contained" className={classes.actionButtom}>
+                    <Button
+                      onClick={this.openGetStartedDialog}
+                      color="primary"
+                      variant="contained"
+                      className={classes.actionButtom}
+                    >
                       Manage
                     </Button>
                   </div>
                 </Paper>
               </Grid>
               <Grid container item xs={12}>
-                  <Grid item xs={12}>
-                    <Paper className={classes.paper}>
-                      <div>
-                        <div className={classes.box}>
-                          <Typography color='secondary' gutterBottom>
-                            Frequently Asked Questions 
-                          </Typography>
-                          <Typography variant="body1" gutterBottom>
-                            --
-                          </Typography>
-                        </div>
-                        <div className={classes.alignRight}>
-                          <Button color='primary' variant="contained" className={classes.actionButtom}>
-                            Ask a question
-                          </Button>
-                        </div>
+                <Grid item xs={12}>
+                  <Paper className={classes.paper}>
+                    <div>
+                      <div className={classes.box}>
+                        <Typography color="secondary" gutterBottom>
+                          Frequently Asked Questions
+                        </Typography>
+                        <Typography variant="body1" gutterBottom>
+                          --
+                        </Typography>
                       </div>
-                    </Paper>
+                      <div className={classes.alignRight}>
+                        <Button
+                          color="primary"
+                          variant="contained"
+                          className={classes.actionButtom}
+                        >
+                          Ask a question
+                        </Button>
+                      </div>
+                    </div>
+                  </Paper>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
           <SwipeDialog
             open={this.state.learnMoredialog}
-            onClose={this.dialogClose} />
+            onClose={this.dialogClose}
+          />
           <InstructionDialog
             open={this.state.getStartedDialog}
             onClose={this.closeGetStartedDialog}
           />
         </div>
       </React.Fragment>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user
-})
+const mapStateToProps = state => ({
+  user: state.user,
+});
 
 export default compose(
-  connect(mapStateToProps, {}),
+  connect(
+    mapStateToProps,
+    {}
+  ),
   withRouter,
-  withStyles(styles),
-  )(Main);
+  withStyles(styles)
+)(Main);

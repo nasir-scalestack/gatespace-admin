@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { ConnectedRouter } from 'connected-react-router';
 
@@ -7,7 +7,7 @@ import './App.css';
 import Routes from './routes';
 import store, { history } from './redux/store';
 
-import './assets/css/material-dashboard-react.css?v=1.6.0';
+import './assets/css/material-dashboard-react.css';
 
 const theme = createMuiTheme({
   palette: {

@@ -5,6 +5,7 @@ export const FETCH_USER = 'FETCH_USER';
 export const fetchUser = () => dispatch => {
   authRef.onAuthStateChanged(user => {
     if (user) {
+      console.log(user);
       dispatch({
         type: FETCH_USER,
         payload: user,
@@ -12,18 +13,21 @@ export const fetchUser = () => dispatch => {
     } else {
       dispatch({
         type: FETCH_USER,
-        payload: null,
+        payload: false,
       });
     }
   });
 };
 
-export const signIn = () => dispatch => {
+export const signIn = (email, password) => dispatch => {
   authRef
-    .signInWithPopup(provider)
-    .then(result => {})
+    .signInWithEmailAndPassword(email, password)
+    .then(user => {
+      console.log(user);
+    })
     .catch(error => {
-      console.log(error);
+      const { message } = error;
+      alert(message);
     });
 };
 
@@ -39,6 +43,7 @@ export const signOut = () => dispatch => {
 };
 
 export default (state = false, action) => {
+  console.log(action);
   switch (action.type) {
     case FETCH_USER:
       return action.payload || null;
