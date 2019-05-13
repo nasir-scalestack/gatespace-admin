@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../firebase';
+import { gameRef } from '../config/firebase';
 
 class Game extends React.Component {
   state = {
@@ -9,12 +9,9 @@ class Game extends React.Component {
   };
 
   componentDidMount() {
-    firebase
-      .database()
-      .ref('game')
-      .on('value', snapshot => {
-        this.setState({ ...snapshot.val() });
-      });
+    gameRef.on('value', snapshot => {
+      this.setState({ ...snapshot.val() });
+    });
   }
 
   renderContent() {

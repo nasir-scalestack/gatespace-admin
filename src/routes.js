@@ -12,6 +12,7 @@ import SignIn from './components/SignIn';
 import Account from './components/Account';
 import Game from './components/Game';
 import Help from './components/Main';
+import requireAuth from "./components/Auth/requireAuth";
 
 import ScrollToTop from './components/ScrollTop';
 
@@ -26,12 +27,12 @@ class Routes extends React.Component {
         location.pathname === '/signin' ||
         location.pathname === '/docs' ? (
           <Switch>
-            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/" component={requireAuth(Dashboard)} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/analytics" component={Analytics} />
-            <Route exact path="/add-project" component={ProjectAdd} />
-            <Route exact path="/manage-gates" component={Manage} />
-            <Route exact path="/manage-account" component={Account} />
+            <Route exact path="/analytics" component={requireAuth(Analytics)} />
+            <Route exact path="/add-project" component={requireAuth(ProjectAdd)} />
+            <Route exact path="/manage-gates" component={requireAuth(Manage)} />
+            <Route exact path="/manage-account" component={requireAuth(Account)} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/docs" component={Help} />
           </Switch>

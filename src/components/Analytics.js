@@ -5,7 +5,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 // core components
 import CssBaseline from '@material-ui/core/CssBaseline';
-import firebase from '../firebase';
 import Card from './Card/Card';
 import CardHeader from './Card/CardHeader';
 import CardBody from './Card/CardBody';
@@ -16,6 +15,8 @@ import GridContainer from './Grid/GridContainer';
 import Table from './Table/Table';
 
 import Topbar from './Topbar';
+
+import { eventsRef } from '../config/firebase';
 
 const backgroundShape = require('../assets/img/shape.svg');
 
@@ -72,53 +73,50 @@ class UserProfile extends React.Component {
   };
 
   componentDidMount() {
-    firebase
-      .database()
-      .ref('events')
-      .on('child_added', snapshot => {
-        console.log(snapshot.val());
-        const space =
-          snapshot.val().uuid === 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'
-            ? 'Toronto Airport'
-            : 'Denver Airport';
+    eventsRef.on('child_added', snapshot => {
+      console.log(snapshot.val());
+      const space =
+        snapshot.val().uuid === 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'
+          ? 'Toronto Airport'
+          : 'Denver Airport';
 
-        let gate = '';
+      let gate = '';
 
-        if (snapshot.val().major === 1) {
-          gate = 'Gate 1';
-        }
-        if (snapshot.val().major === 2) {
-          gate = 'Gate 2';
-        }
-        if (snapshot.val().major === 3) {
-          gate = 'Gate 3';
-        }
-        if (snapshot.val().major === 4) {
-          gate = 'Gate 4';
-        }
-        if (snapshot.val().major === 5) {
-          gate = 'Gate 5';
-        }
-        const action =
-          snapshot.val().time === 'immediate' ? 'IN_APP_NOTIFICATION' : '';
-        const newEvent = [
-          'Nasir Dowlatkhahi',
-          'Email',
-          snapshot.val().proximity,
-          gate,
-          space,
-          'No Flight',
-          'No Desintation',
-          snapshot.val().time,
-          snapshot.val().time,
-          action,
-          snapshot.val().code,
-        ];
+      if (snapshot.val().major === 1) {
+        gate = 'Gate 1';
+      }
+      if (snapshot.val().major === 2) {
+        gate = 'Gate 2';
+      }
+      if (snapshot.val().major === 3) {
+        gate = 'Gate 3';
+      }
+      if (snapshot.val().major === 4) {
+        gate = 'Gate 4';
+      }
+      if (snapshot.val().major === 5) {
+        gate = 'Gate 5';
+      }
+      const action =
+        snapshot.val().time === 'immediate' ? 'IN_APP_NOTIFICATION' : '';
+      const newEvent = [
+        'Nasir Dowlatkhahi',
+        'Email',
+        snapshot.val().proximity,
+        gate,
+        space,
+        'No Flight',
+        'No Desintation',
+        snapshot.val().time,
+        snapshot.val().time,
+        action,
+        snapshot.val().code,
+      ];
 
-        this.setState(prevState => ({
-          events: [...prevState.events, newEvent],
-        }));
-      });
+      this.setState(prevState => ({
+        events: [...prevState.events, newEvent],
+      }));
+    });
   }
 
   render() {

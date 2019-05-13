@@ -9,6 +9,12 @@ const config = {
   messagingSenderId: '685927665140',
 };
 
-firebase.initializeApp(config);
+if (!firebase.apps.length) {
+  firebase.initializeApp(config);
+}
 
-export default firebase;
+const databaseRef = firebase.database().ref();
+export const eventsRef = databaseRef.child('events');
+export const gameRef = databaseRef.child('game');
+export const authRef = firebase.auth();
+export const provider = new firebase.auth.GoogleAuthProvider();
